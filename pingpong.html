@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>CMST 290: JavaScript/HTML5 Bouncing Ball Example</title>
+
+<style type="text/css">
+  <!--
+  body { background-color:#eeeeee;}
+  h3 { color: #336699; font-weight: bold; margin-left: 10px; }
+  #demoContainer {width: 380px; margin-left:10px; }
+  #ballContainer {width: 380px; margin-left:10px; }
+  #ballBox { background:#fff; border:1px solid #cbcbcb; }
+  #pageContainer {width: 960px; background: #FFFFFF; padding-bottom: 20px; margin: 0px auto;  overflow: hidden; }
+  #bodyContent { width: 390px; float: right; }
+  #explanationContent { float: right; width: 540px; padding-left: 10px; padding-right: 10px; background: #FFFFCC; margin-right: 10px; }
+  -->
+</style>
+
+	<script type="text/javascript">
+	<!--
+        
+		// Initialization of variables
+        var canvas;
+        var dx=4;
+        var dy=4;
+        var y=150;
+        var x=10;
+		
+		//Function to draw the path of the ball
+        function drawBallPath(){
+            canvas = document.getElementById("ballBox").getContext('2d');
+            canvas.clearRect(0,0,300,300);
+            canvas.beginPath();
+            canvas.fillStyle="#cc0000";
+            canvas.arc(x,y,10,0,Math.PI*2,true);
+            canvas.closePath();
+            canvas.fill();
+            if( x < 0 || x > 290)
+                dx = -dx;
+            if( y < 0 || y > 305)
+                dy =- dy;
+            x += dx;
+            y += dy;
+        }
+        
+        //Function to start the bouncing ball animation			
+        function startBall() {
+            animation = setInterval(drawBallPath,10);
+            document.getElementById("startBallBtn").disabled = true;
+            document.getElementById("stopBallBtn").disabled = false;
+        }
+        
+        //Function to stop the bouncing ball animation
+        function stopBall() {
+            clearInterval(animation);
+            document.getElementById("startBallBtn").disabled = false;
+            document.getElementById("stopBallBtn").disabled = true;
+        }
+	-->
+    </script>
+
+</head>
+
+<body>
+
+<div id="pageContainer">
+	<h3>CMST 290: JavaScript/HTML5 Bouncing Ball Example</h3>
+	<div id="explanationContent">
+<h4>HTML5 Code</h4>
+<pre>
+&lt;!-- Setup the canvas space where the ball will bounce --&gt;
+&lt;canvas id="ballBox" width="300" height="300"&gt;&lt;/canvas&gt;
+&lt;br /&gt;
+&lt;!-- Create a button to let the user start the ball --&gt;
+&lt;input type="button" id="startBallBtn" value="Start Ball"
+	onclick="startBall();"&gt;
+&lt;!-- Create a button to let the user stop the ball --&gt;    
+&lt;input type="button" id="stopBallBtn" value="Stop Ball"
+	onClick="stopBall();" disabled&gt;
+</pre>    
+		<h4>JavaScript Code</h4>
+<pre>
+// Initialization of variables
+var canvas; //variable to represent the HTML canvas
+var dx=4; // variable to represent the ball's X-coordinate direction
+var dy=4; // variable to represent the ball's Y-coordinate direction
+var y=150; // variable to represent the ball's Y-coordinate
+var x=10; // variable to represent the ball's X-coordinate
+
+/* Function to draw the path of the ball
+ * Note: A ball moving is not actually what occurs, but rather
+ * a circle is redrawn each time so quickly the user thinks
+ * motion is occurring
+ */
+function drawBallPath(){
+    // Set the canvas variable equal to the HTML created canvas
+    canvas = document.getElementById("ballBox").getContext('2d');
+    // Clear the canvas
+    canvas.clearRect(0,0,300,300);
+    // Initiate the drawing of the ball on the canvas
+    canvas.beginPath();
+    // Set the fill color of the ball to red
+    canvas.fillStyle="#cc0000";
+    // Draw the ball in the shape of a circle using math functions
+    canvas.arc(x,y,10,0,Math.PI*2,true);
+    // Finish the drawing of the ball
+    canvas.closePath();
+    // Fill the color of the ball
+    canvas.fill();
+    /* If the ball is about to go off screen horizontally, reverse
+     * the direction of the ball */       
+    if( x &lt; 0 || x &gt; 290)
+        dx = -dx;
+    /* If the ball is about to go off screen vertically, reverse
+     * the direction of the ball */          
+    if( y &lt; 0 || y &gt; 305)
+        dy =- dy;
+    // Set the new X and Y coordinates of the ball    
+    x += dx;
+    y += dy;
+}
+
+// Function to start the bouncing ball animation			
+function startBall() {
+    // Start the animation
+    animation = setInterval(drawBallPath,10);
+    // When the animation is started, disable the start button
+    document.getElementById("startBallBtn").disabled = true;
+    // When the animation is started, enable the stop button
+    document.getElementById("stopBallBtn").disabled = false;
+}
+
+// Function to stop the bouncing ball animation
+function stopBall() {
+    // Stop the animation
+    clearInterval(animation);
+    // When the animation is stopped, enable the start button
+    document.getElementById("startBallBtn").disabled = false;
+    // When the animation is stopped, disable the stop button
+    document.getElementById("stopBallBtn").disabled = true;
+}
+</pre>
+	</div>
+	<div id="bodyContent">
+		<div id="demoContainer">
+			<p>Using JavaScript and HTML5, a digital media creator can use these Web technologies to create animation.</p>
+			<p>To view the demo, click the <strong>Start Ball</strong> button. <span style="font-style:italic;">Note:</span> For the demo to work, you must be using a current version of Microsoft Internet Explorer, Mozilla Firefox, Google Chrome, Safari, or a similar browser that supports HTML5.</p>
+		</div>
+		<div id="ballContainer">
+			<canvas id="ballBox" width="300" height="300"></canvas>
+			<br />
+			<input type="button" id="startBallBtn" value="Start Ball" onclick="startBall();">
+			<input type="button" id="stopBallBtn" value="Stop Ball" onClick="stopBall();" disabled>
+		</div>
+	</div>
+</div>
+</body>
+</html>
